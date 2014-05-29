@@ -8,7 +8,7 @@
         "footer.gif"
     ],
     "version": 1,
-    "build": 66,
+    "build": 67,
     "minify": true,
     "output": "/build",
     "name": "channel-ad"

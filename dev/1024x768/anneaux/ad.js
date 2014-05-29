@@ -7,6 +7,9 @@
 	
 	// --- Start editing here --- \\
 	
+	// scaling
+	var scale = false;
+	
 	// DOM Targets
 	var el				= {
 		container:	document.getElementById("ad_1024x768"),
@@ -76,66 +79,80 @@
 		// Get the available viewport size
 		var available	= getViewport();
 		
-		// Calculate the current screen ratio
-		var screenRatio	= available.width/available.height;
+		var multiplier = 1;
 		
-		// Calculate the new container size
-		if (screenRatio >= ratio.container) {
-			// Width based on height
-			var newSize = {
-				width:	available.height*ratio.container,
-				height:	available.height
+		if (available.width > available.height) {
+			// landscape
+			
+			if (available.width > 2000) {
+				multiplier = 2;
+			}
+			
+			var sizes = {
+				container:	{
+					width:		(495*multiplier)+"px",
+					height:		(781*multiplier)+"px",
+					margin:		(43*multiplier)+"px auto 0"
+				},
+				window:			{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				bg:			{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				anim:		{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				footer:		{
+					width:		(495*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		(24*multiplier)+"px auto 0"
+				},
+				footerimg:	{
+					width:		(s_footer.width*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		"0 "+(((495*multiplier)-(s_footer.width*multiplier))/2)+"px"
+				}
 			}
 		} else {
-			// height based on width
-			var newSize = {
-				width:	available.width,
-				height:	available.width/ratio.container
+			// portrait
+			
+			if (available.width > 1000) {
+				multiplier = 2;
 			}
-		}
-		
-		// Calculate the width and height of each component
-		var sizes = {
-			container:	{
-				width:		newSize.width+"px",
-				height:		newSize.height+"px"
-			},
-			window:			{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			bg:			{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			anim:		{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			footer:		{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.footer)+"px"
+			
+			var sizes = {
+				container:	{
+					width:		(495*multiplier)+"px",
+					height:		(781*multiplier)+"px",
+					margin:		(118*multiplier)+"px auto 0"
+				},
+				window:			{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				bg:			{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				anim:		{
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
+				},
+				footer:		{
+					width:		(495*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		(118*multiplier)+"px auto 0"
+				},
+				footerimg:	{
+					width:		(s_footer.width*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		"0 "+(((495*multiplier)-(s_footer.width*multiplier))/2)+"px"
+				}
 			}
-		}
-		if (s_footer.height >= parseInt(sizes.footer.height)) {
-			// Footer is larger than available space
-			// Shrink
-			sizes.footerimg = {
-				width:		(parseInt(sizes.footer.height)*ratio.footer)+"px",
-				height:		sizes.footer.height,
-				left:		Math.round((parseInt(sizes.footer.width)-(parseInt(sizes.footer.height)*ratio.footer))/2)+"px",
-				top:		0
-			};
-		} else {
-			// Footer is smaller than available space
-			// Don't resize
-			// Center
-			sizes.footerimg = {
-				width:		s_footer.width+"px",
-				height:		s_footer.height+"px",
-				left:		Math.round((parseInt(sizes.footer.width)-s_footer.width)/2)+"px",
-				top:		Math.round((parseInt(sizes.footer.height)-s_footer.height)/2)+"px"
-			};
 		}
 		
 		// Apply those width/height
@@ -153,24 +170,26 @@
 	// Resize the ad
 	var initAnim = function() {
 		// Init the styles
-		/*TweenLite.set(el.anim, {
-			scale:		1.5,
-			opacity:	0
-		});
-		*/
 		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
+		
+		// Wait one sec to do anything
 		setTimeout(function() {
-			move(el.anim).set('opacity', 0.6).duration('2s').end();
+			// Alpha change for 1.8 sec
+			move(el.anim).set('opacity', 0.6).ease('linear').duration('1,8s').end();
+			// wait 1.8sec for the alpha to finish
 			setTimeout(function() {
-				move(el.anim).scale(1).set('opacity', 1).duration('2s').end(function() {
+				// alpha=1 and scale=75% after 3.2sec
+				move(el.anim).scale(1).set('opacity', 1).ease('linear').duration('3,2s').end(function() {
 					// bugfix, remove the transition duration
 					move(el.anim).duration('0ms').end();
 					el.bg.style.display = 'none';
 				})
-			}, 1000);
-		}, animDelay);
+			}, 1800);
+		}, 1000);
 		
 	}
+	
+	
 	
 	
 	
