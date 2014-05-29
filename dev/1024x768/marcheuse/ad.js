@@ -79,79 +79,68 @@
 		// Get the available viewport size
 		var available	= getViewport();
 		
-		// Copy available height
-		var av_height = available.height*1;
-		
-		// Prevent scaling up
-		if (!scale) {
-			if (available.width > s_ad.width) {
-				available.width = s_ad.width;
-			}
-			if (available.height > s_ad.height) {
-				available.height = s_ad.height;
-			}
-		}
-		
-		// Calculate the current screen ratio
-		var screenRatio	= available.width/available.height;
-		
-		// Calculate the new container size
-		if (screenRatio >= ratio.container) {
-			// Width based on height
-			var newSize = {
-				width:	available.height*ratio.container,
-				height:	available.height
+		if (available.width > available.height) {
+			// landscape
+			var sizes = {
+				container:	{
+					width:		"495px",
+					height:		"781px",
+					margin:		"43px auto 0"
+				},
+				window:			{
+					width:		"495px",
+					height:		"495px"
+				},
+				bg:			{
+					width:		"495px",
+					height:		"495px"
+				},
+				anim:		{
+					width:		"495px",
+					height:		"495px"
+				},
+				footer:		{
+					width:		"495px",
+					height:		s_footer.height+"px",
+					margin:		"24px auto 0"
+				},
+				footerimg:	{
+					width:		s_footer.width+"px",
+					height:		s_footer.height+"px",
+					margin:		"0 "+((495-s_footer.width)/2)+"px"
+				}
 			}
 		} else {
-			// height based on width
-			var newSize = {
-				width:	available.width,
-				height:	available.width/ratio.container
+			// portrait
+			var sizes = {
+				container:	{
+					width:		"495px",
+					height:		"781px",
+					margin:		"118px auto 0"
+				},
+				window:			{
+					width:		"495px",
+					height:		"495px"
+				},
+				bg:			{
+					width:		"495px",
+					height:		"495px"
+				},
+				anim:		{
+					width:		"495px",
+					height:		"495px"
+				},
+				footer:		{
+					width:		"495px",
+					height:		s_footer.height+"px",
+					margin:		"118px auto 0"
+				},
+				footerimg:	{
+					width:		s_footer.width+"px",
+					height:		s_footer.height+"px",
+					margin:		"0 "+((495-s_footer.width)/2)+"px"
+				}
 			}
-		}
-		
-		// Calculate the width and height of each component
-		var sizes = {
-			container:	{
-				width:		newSize.width+"px",
-				height:		newSize.height+"px"
-			},
-			window:			{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			bg:			{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			anim:		{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.bg)+"px"
-			},
-			footer:		{
-				width:		newSize.width+"px",
-				height:		(newSize.height*dist.footer)+"px"
-			}
-		}
-		if (s_footer.height >= parseInt(sizes.footer.height)) {
-			// Footer is larger than available space
-			// Shrink
-			sizes.footerimg = {
-				width:		(parseInt(sizes.footer.height)*ratio.footer)+"px",
-				height:		sizes.footer.height,
-				left:		Math.round((parseInt(sizes.footer.width)-(parseInt(sizes.footer.height)*ratio.footer))/2)+"px",
-				top:		0
-			};
-		} else {
-			// Footer is smaller than available space
-			// Don't resize
-			// Center
-			sizes.footerimg = {
-				width:		s_footer.width+"px",
-				height:		s_footer.height+"px",
-				left:		Math.round((parseInt(sizes.footer.width)-s_footer.width)/2)+"px",
-				top:		Math.round((parseInt(sizes.footer.height)-s_footer.height)/2)+"px"
-			};
 		}
 		
 		// Apply those width/height
@@ -162,12 +151,6 @@
 			}
 			
 		}
-		
-		// No scaling = vertical align
-		if (!scale) {
-			el.container.style.margin = ((av_height-newSize.height)/2)+"px auto 0 auto";
-		}
-		
 		
 		return true;
 	}
