@@ -7,6 +7,9 @@
 	
 	// --- Start editing here --- \\
 	
+	// scaling
+	var scale = false;
+	
 	// DOM Targets
 	var el				= {
 		container:	document.getElementById("ad_1024x768"),
@@ -75,6 +78,19 @@
 	var resizeAd = function() {
 		// Get the available viewport size
 		var available	= getViewport();
+		
+		// Copy available height
+		var av_height = available.height*1;
+		
+		// Prevent scaling up
+		if (!scale) {
+			if (available.width > s_ad.width) {
+				available.width = s_ad.width;
+			}
+			if (available.height > s_ad.height) {
+				available.height = s_ad.height;
+			}
+		}
 		
 		// Calculate the current screen ratio
 		var screenRatio	= available.width/available.height;
@@ -147,30 +163,38 @@
 			
 		}
 		
+		// No scaling = vertical align
+		if (!scale) {
+			el.container.style.margin = ((av_height-newSize.height)/2)+"px auto 0 auto";
+		}
+		
+		
 		return true;
 	}
 	
 	// Resize the ad
 	var initAnim = function() {
 		// Init the styles
-		/*TweenLite.set(el.anim, {
-			scale:		1.5,
-			opacity:	0
-		});
-		*/
 		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
+		
+		// Wait one sec to do anything
 		setTimeout(function() {
-			move(el.anim).set('opacity', 0.6).duration('2s').end();
+			// Alpha change for 1.8 sec
+			move(el.anim).set('opacity', 0.6).ease('linear').duration('1,8s').end();
+			// wait 1.8sec for the alpha to finish
 			setTimeout(function() {
-				move(el.anim).scale(1).set('opacity', 1).duration('2s').end(function() {
+				// alpha=1 and scale=75% after 3.2sec
+				move(el.anim).scale(1).set('opacity', 1).ease('linear').duration('3,2s').end(function() {
 					// bugfix, remove the transition duration
 					move(el.anim).duration('0ms').end();
 					el.bg.style.display = 'none';
 				})
-			}, 1000);
-		}, animDelay);
+			}, 1800);
+		}, 1000);
 		
 	}
+	
+	
 	
 	
 	

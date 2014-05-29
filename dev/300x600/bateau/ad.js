@@ -7,6 +7,9 @@
 	
 	// --- Start editing here --- \\
 	
+	// scaling
+	var scale = false;
+	
 	// DOM Targets
 	var el				= {
 		container:	document.getElementById("ad_300x600"),
@@ -33,7 +36,7 @@
 	};
 	
 	// ANimation start delay
-	var animDelay = 1000;
+	var animDelay = 600;
 	
 	// --- Stop editing here --- \\
 	
@@ -74,6 +77,19 @@
 	var resizeAd = function() {
 		// Get the available viewport size
 		var available	= getViewport();
+		
+		// Copy available height
+		var av_height = available.height*1;
+		
+		// Prevent scaling up
+		if (!scale) {
+			if (available.width > s_ad.width) {
+				available.width = s_ad.width;
+			}
+			if (available.height > s_ad.height) {
+				available.height = s_ad.height;
+			}
+		}
 		
 		// Calculate the current screen ratio
 		var screenRatio	= available.width/available.height;
@@ -124,27 +140,27 @@
 			el[i].style.height	= sizes[i].height;
 		}
 		
+		// No scaling = vertical align
+		if (!scale) {
+			el.container.style.margin = ((av_height-newSize.height)/2)+"px auto 0 auto";
+		}
+		
 		return true;
 	}
 	
 	// Resize the ad
 	var initAnim = function() {
 		// Init the styles
-		/*TweenLite.set(el.anim, {
-			scale:		1.5,
-			opacity:	0
-		});
-		*/
 		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
 		setTimeout(function() {
-			move(el.anim).set('opacity', 0.6).duration('2s').end();
+			move(el.anim).set('opacity', 0.6).duration('1,5s').end();
 			setTimeout(function() {
-				move(el.anim).scale(1).set('opacity', 1).duration('2s').end(function() {
+				move(el.anim).scale(1).set('opacity', 1).duration('3s').end(function() {
 					// bugfix, remove the transition duration
 					move(el.anim).duration('0ms').end();
 					el.bg.style.display = 'none';
 				})
-			}, 1000);
+			}, 1500-animDelay);
 		}, animDelay);
 		
 	}
