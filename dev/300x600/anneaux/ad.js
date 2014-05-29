@@ -130,22 +130,19 @@
 	// Resize the ad
 	var initAnim = function() {
 		// Init the styles
-		TweenLite.set(el.anim, {
+		/*TweenLite.set(el.anim, {
 			scale:		1.5,
 			opacity:	0
 		});
-		
+		*/
+		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
+		console.info("initAnim");
 		setTimeout(function() {
-			
-			var tl = new TimelineLite();
-			
-			tl.add(TweenLite.to(el.anim, 1.5, {
-				opacity:	0.8
-			}));
-			tl.add(TweenLite.to(el.anim, 1.5, {
-				opacity:	1,
-				scale:		1
-			}));
+			console.log("starting Tween...");
+			move(el.anim).set('opacity', 0.6).duration('2s').end();
+			setTimeout(function() {
+				move(el.anim).scale(1).set('opacity', 1).duration('2s').end()
+			}, 1000);
 		}, animDelay);
 		
 	}

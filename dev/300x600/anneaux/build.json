@@ -1,8 +1,6 @@
 {
     "files": [
-        "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.8/plugins/CSSPlugin.min.js",
-        "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.8/TweenLite.min.js",
-        "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.8/TimelineLite.min.js",
+        "move.min.js",
         "ad.js",
         "ad.less",
         "montre.jpg",
@@ -10,7 +8,7 @@
         "footer.gif"
     ],
     "version": 1,
-    "build": 61,
+    "build": 62,
     "minify": true,
     "output": "/build",
     "name": "channel-ad"
