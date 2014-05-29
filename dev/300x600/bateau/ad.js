@@ -153,7 +153,7 @@
 		// Init the styles
 		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
 		setTimeout(function() {
-			move(el.anim).set('opacity', 0.6).duration('1,5s').end();
+			move(el.anim).set('opacity', 0.4).duration('1,5s').end();
 			setTimeout(function() {
 				move(el.anim).scale(1).set('opacity', 1).duration('3s').end(function() {
 					// bugfix, remove the transition duration

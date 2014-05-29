@@ -175,7 +175,7 @@
 		// Wait one sec to do anything
 		setTimeout(function() {
 			// Alpha change for 1.8 sec
-			move(el.anim).set('opacity', 0.6).ease('linear').duration('1,8s').end();
+			move(el.anim).set('opacity', 0.4).ease('linear').duration('1,8s').end();
 			// wait 1.8sec for the alpha to finish
 			setTimeout(function() {
 				// alpha=1 and scale=75% after 3.2sec
