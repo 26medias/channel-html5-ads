@@ -1,2 +1,2 @@
 ## Channel Ads ##
-[Voir la demo](https://github.io/26medias/channel-html5-ads "Voir la demo")
+[Voir la demo](http://26medias.github.io/channel-html5-ads/ "Voir la demo")
