@@ -9,27 +9,28 @@
 	
 	// DOM Targets
 	var el				= {
-		container:	document.getElementById("ad_300x600"),
-		bg:			document.getElementById("ad_300x600_bg"),
-		window:		document.getElementById("ad_300x600_window"),
-		anim:		document.getElementById("ad_300x600_anim"),
-		footer:		document.getElementById("ad_300x600_footer")
+		container:	document.getElementById("ad_1024x768"),
+		bg:			document.getElementById("ad_1024x768_bg"),
+		window:		document.getElementById("ad_1024x768_window"),
+		anim:		document.getElementById("ad_1024x768_anim"),
+		footer:		document.getElementById("ad_1024x768_footer"),
+		footerimg:	document.getElementById("ad_1024x768_footer_image")
 	}
 	
 	// Ad size
 	var s_ad			= {
-		width:	300,
-		height:	600
+		width:	768,
+		height:	1024
 	};
 	// Static image size (background, top)
 	var s_bg	= {
-		width:	300,
-		height:	430
+		width:	495,
+		height:	495
 	};
 	// Footer size
 	var s_footer	= {
-		width:	300,
-		height:	170
+		width:	273,
+		height:	168
 	};
 	
 	// ANimation start delay
@@ -116,12 +117,34 @@
 				height:		(newSize.height*dist.footer)+"px"
 			}
 		}
+		if (s_footer.height >= parseInt(sizes.footer.height)) {
+			// Footer is larger than available space
+			// Shrink
+			sizes.footerimg = {
+				width:		(parseInt(sizes.footer.height)*ratio.footer)+"px",
+				height:		sizes.footer.height,
+				left:		Math.round((parseInt(sizes.footer.width)-(parseInt(sizes.footer.height)*ratio.footer))/2)+"px",
+				top:		0
+			};
+		} else {
+			// Footer is smaller than available space
+			// Don't resize
+			// Center
+			sizes.footerimg = {
+				width:		s_footer.width+"px",
+				height:		s_footer.height+"px",
+				left:		Math.round((parseInt(sizes.footer.width)-s_footer.width)/2)+"px",
+				top:		Math.round((parseInt(sizes.footer.height)-s_footer.height)/2)+"px"
+			};
+		}
 		
 		// Apply those width/height
-		var i;
+		var i,j;
 		for (i in sizes) {
-			el[i].style.width	= sizes[i].width;
-			el[i].style.height	= sizes[i].height;
+			for (j in sizes[i]) {
+				el[i].style[j]	= sizes[i][j];
+			}
+			
 		}
 		
 		return true;
