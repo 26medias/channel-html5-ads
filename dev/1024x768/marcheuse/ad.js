@@ -79,66 +79,78 @@
 		// Get the available viewport size
 		var available	= getViewport();
 		
+		var multiplier = 1;
+		
 		if (available.width > available.height) {
 			// landscape
+			
+			if (available.width > 2000) {
+				multiplier = 2;
+			}
+			
 			var sizes = {
 				container:	{
-					width:		"495px",
-					height:		"781px",
-					margin:		"43px auto 0"
+					width:		(495*multiplier)+"px",
+					height:		(781*multiplier)+"px",
+					margin:		(43*multiplier)+"px auto 0"
 				},
 				window:			{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				bg:			{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				anim:		{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				footer:		{
-					width:		"495px",
-					height:		s_footer.height+"px",
-					margin:		"24px auto 0"
+					width:		(495*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		(24*multiplier)+"px auto 0"
 				},
 				footerimg:	{
-					width:		s_footer.width+"px",
-					height:		s_footer.height+"px",
-					margin:		"0 "+((495-s_footer.width)/2)+"px"
+					width:		(s_footer.width*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		"0 "+(((495*multiplier)-(s_footer.width*multiplier))/2)+"px"
 				}
 			}
 		} else {
 			// portrait
+			
+			if (available.width > 1000) {
+				multiplier = 2;
+			}
+			
 			var sizes = {
 				container:	{
-					width:		"495px",
-					height:		"781px",
-					margin:		"118px auto 0"
+					width:		(495*multiplier)+"px",
+					height:		(781*multiplier)+"px",
+					margin:		(118*multiplier)+"px auto 0"
 				},
 				window:			{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				bg:			{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				anim:		{
-					width:		"495px",
-					height:		"495px"
+					width:		(495*multiplier)+"px",
+					height:		(495*multiplier)+"px",
 				},
 				footer:		{
-					width:		"495px",
-					height:		s_footer.height+"px",
-					margin:		"118px auto 0"
+					width:		(495*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		(118*multiplier)+"px auto 0"
 				},
 				footerimg:	{
-					width:		s_footer.width+"px",
-					height:		s_footer.height+"px",
-					margin:		"0 "+((495-s_footer.width)/2)+"px"
+					width:		(s_footer.width*multiplier)+"px",
+					height:		(s_footer.height*multiplier)+"px",
+					margin:		"0 "+(((495*multiplier)-(s_footer.width*multiplier))/2)+"px"
 				}
 			}
 		}
