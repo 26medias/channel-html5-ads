@@ -87,7 +87,6 @@
 			if (available.width > 2000) {
 				multiplier = 2;
 			}
-			
 			var sizes = {
 				container:	{
 					width:		(495*multiplier)+"px",
@@ -123,7 +122,6 @@
 			if (available.width > 1000) {
 				multiplier = 2;
 			}
-			
 			var sizes = {
 				container:	{
 					width:		(495*multiplier)+"px",
@@ -167,10 +165,26 @@
 		return true;
 	}
 	
+	
+	var available	= getViewport();
+	var multiplier = 1;
+	if (available.width > available.height) {
+		// landscape
+		if (available.width > 2000) {
+			multiplier = 2;
+		}
+	} else {
+		// portrait
+		if (available.width > 1000) {
+			multiplier = 2;
+		}
+	}
+	
 	// Resize the ad
 	var initAnim = function() {
+		
 		// Init the styles
-		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
+		move(el.anim).scale(1.5).set('opacity', 0).to(55*multiplier,-30*multiplier).duration('0ms').end();
 		
 		// Wait one sec to do anything
 		setTimeout(function() {
@@ -179,7 +193,7 @@
 			// wait 1.8sec for the alpha to finish
 			setTimeout(function() {
 				// alpha=1 and scale=75% after 3.2sec
-				move(el.anim).scale(1).set('opacity', 1).ease('linear').duration('3,2s').end(function() {
+				move(el.anim).to(0,0).scale(1).set('opacity', 1).ease('linear').duration('3,2s').end(function() {
 					// bugfix, remove the transition duration
 					move(el.anim).duration('0ms').end();
 					el.bg.style.display = 'none';

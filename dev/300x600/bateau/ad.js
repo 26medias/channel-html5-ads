@@ -151,11 +151,11 @@
 	// Resize the ad
 	var initAnim = function() {
 		// Init the styles
-		move(el.anim).scale(1.5).set('opacity', 0).duration('0ms').end();
+		move(el.anim).scale(1.5).set('opacity', 0).to(50).duration('0ms').end();
 		setTimeout(function() {
 			move(el.anim).set('opacity', 0.4).duration('1,5s').end();
 			setTimeout(function() {
-				move(el.anim).scale(1).set('opacity', 1).duration('3s').end(function() {
+				move(el.anim).to(0).scale(1).set('opacity', 1).duration('3s').end(function() {
 					// bugfix, remove the transition duration
 					move(el.anim).duration('0ms').end();
 					el.bg.style.display = 'none';
